@@ -33,8 +33,9 @@ public class Test01 {
         //hadoop文件系统的权限设置为root  ,不设置，使用默认的登录用户
         System.setProperty("HADOOP_USER_NAME","root");
         Configuration conf = new Configuration();
-        conf.set("fs.defaultFS","hdfs://192.168.213.201:9000");
-        conf.set("dfs.replication","1");
+        //conf.set("fs.defaultFS","hdfs://192.168.213.201:9000");
+        //conf.set("dfs.replication","1");
+        conf.set("fs.defaultFS","hdfs://192.168.213.215:9000");
         fileSystem = FileSystem.get(conf);
     }
 
