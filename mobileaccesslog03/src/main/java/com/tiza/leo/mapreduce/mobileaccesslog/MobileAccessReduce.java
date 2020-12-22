@@ -3,6 +3,7 @@ package com.tiza.leo.mapreduce.mobileaccesslog;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
@@ -12,6 +13,9 @@ import java.io.IOException;
  * Content:
  */
 public class MobileAccessReduce extends Reducer<Text,Text,Text,Text> {
+
+    private Logger logger=Logger.getLogger(MobileAccessReduce.class);
+
     /**
      *  map的输出作为 reduce 的输入
      *                   key                      value
@@ -29,13 +33,15 @@ public class MobileAccessReduce extends Reducer<Text,Text,Text,Text> {
         long upValue=0L;
         long downValue=0L;
         long allValue=0L;
+        logger.info("====reduce key:"+ key + " ;  value: "+ values.toString()+ "============");
         for (Text value : values) {
-            System.out.println("current key:" + key + "curent value: "+ value+ ";");
+            System.out.println("--- current key:" + key + "   ----  curent value: "+ value+ ";");
+            logger.info("--- current key:" + key + "   ----  curent value: "+ value+ ";");
             String[] mobileMes = value.toString().split(",");
-            upValue = Long.parseLong(mobileMes[0]);
-            downValue =Long.parseLong(mobileMes[1]);
-            allValue = upValue+downValue;
+            upValue += Long.parseLong(mobileMes[0]);
+            downValue +=Long.parseLong(mobileMes[1]);
         }
+        allValue = upValue+downValue;
         context.write(key,new Text("up:"+upValue+",down:"+downValue+",all:"+allValue));
         //super.reduce(key, values, context);
     }

@@ -3,6 +3,7 @@ package com.tiza.leo.mapreduce.mobileaccesslog;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
@@ -12,6 +13,9 @@ import java.io.IOException;
  * Content:
  */
 public class MobileAccessMap extends Mapper<LongWritable,Text,Text,Text> {
+
+    private Logger logger = Logger.getLogger(MobileAccessMap.class);
+
     /**
      *
      * @param key      没有使用 （原始数据的字符偏移量，作为key ）
@@ -29,7 +33,8 @@ public class MobileAccessMap extends Mapper<LongWritable,Text,Text,Text> {
      */
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        System.out.println("current key:" + key + "curent value: " + value + ";");
+        System.out.println("  current key:" + key + "  curent value: " + value + ";");
+        logger.info("  current key:" + key + "  curent value: " + value + ";");
         String[] values = value.toString().split("\t");  //不是空格
         int length = values.length;  //长度  共8 如果小于8 报错
         String keyOut = "";

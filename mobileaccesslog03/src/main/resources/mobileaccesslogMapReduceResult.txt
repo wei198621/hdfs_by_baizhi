@@ -1,5 +1,5 @@
 [root@hadoop15 hadoopdata]# hdfs dfs -cat /mobileaccesslog/result/part-r-00000
-13726230503     up:2481,down:24681,all:27162
-13826544101     up:264,down:0,all:264
-13926251106     up:240,down:0,all:240
-13926435656     up:132,down:1512,all:1644
+13726230503	up:4962,down:49362,all:54324
+13826544101	up:528,down:0,all:528
+13926251106	up:480,down:0,all:480
+13926435656	up:264,down:3024,all:3288

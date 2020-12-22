@@ -1,10 +1,10 @@
-package com.tiza.leo.mapreduce.mobileaccesslog;
+package com.tiza.leo.mapreduce.cutmulti;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -14,43 +14,42 @@ import org.apache.hadoop.util.ToolRunner;
 import org.apache.log4j.Logger;
 
 /**
- * Author: tz_wl
- * Date: 2020/12/22 17:11
- * Content:
+ * @author leowei
+ * @date 2020/12/23  - 0:24
  */
-public class MobileAccessJob extends Configured implements Tool {
-    private Logger logger = Logger.getLogger(MobileAccessJob.class);
+public class CutMultiJob extends Configured implements Tool {
+    private Logger logger = Logger.getLogger(CutMultiJob.class);
 
     public static void main(String[] args) throws Exception {
-        ToolRunner.run(new MobileAccessJob(),args);
+        ToolRunner.run(new CutMultiJob(),args);
     }
 
     public int run(String[] strings) throws Exception {
-        logger.info("============ MobileAccessJob  start run...... ==============");
+        logger.info("============ CutMultiJob  start run...... ==============");
         // 1  创建job
         Configuration conf = getConf();
         Job job = Job.getInstance(conf);
-        job.setJarByClass(MobileAccessJob.class);
+        job.setJarByClass(CutMultiJob.class);
 
         // 2  设置inputformat
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job,new Path("/mobileaccesslog/data"));
+        TextInputFormat.addInputPath(job,new Path("/cutmulti/"));
 
         // 3  设置map阶段
-        job.setMapperClass(MobileAccessMap.class);
+        job.setMapperClass(CutMultiMap.class);
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(Text.class);
+        job.setMapOutputValueClass(NullWritable.class);
 
         // 4  设置shuffle 阶段  (默认无需配置)
 
         // 5  设置reduce 阶段
-        job.setReducerClass(MobileAccessReduce.class);
+        job.setReducerClass(CutMultiReduce.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class);
+        job.setOutputValueClass(NullWritable.class);
 
         // 6  设置 output Formate   注意:要求结果目录不能存在
         job.setOutputFormatClass(TextOutputFormat.class);
-        Path resPath = new Path("/mobileaccesslog/result");  //此为目录 会在 此目录下 生成/mobileaccesslog/result/part-r-00000 名的结果文件
+        Path resPath = new Path("/cutmultiResult/result");  //此为目录 会在 此目录下 生成/mobileaccesslog/result/part-r-00000 名的结果文件
         FileSystem fileSystem = FileSystem.get(conf);
         if(fileSystem.exists(resPath)){
             fileSystem.delete(resPath,true);
@@ -59,9 +58,8 @@ public class MobileAccessJob extends Configured implements Tool {
 
         // 7  提交job作业
         boolean result = job.waitForCompletion(true);
-        System.out.println("mobileaccesslog result = " + result);
-        logger.info("============ MobileAccessJob  end  ...   mobileaccesslog result = " + result);
+        System.out.println("CutMultiJob result = " + result);
+        logger.info("============ CutMultiJob  end  ...   CutMultiJob result = " + result);
         return 0;
     }
-
 }
