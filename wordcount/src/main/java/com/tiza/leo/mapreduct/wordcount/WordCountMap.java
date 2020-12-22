@@ -42,6 +42,7 @@ public class WordCountMap extends Mapper<LongWritable,Text,Text,LongWritable> {
      */
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        System.out.println("current key:" + key + "curent value: "+ value+ ";");
         String[] keys = value.toString().split(" ");
         for (String word : keys) {
             context.write(new Text(word),new LongWritable(1));

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tiza.leo.hadoop.mapreduce</groupId>
-    <artifactId>wordcount</artifactId>
+    <artifactId>mobileaccesslog03</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -74,7 +74,7 @@
                     <outputDirectory>${basedir}/target</outputDirectory>
                     <archive>
                         <manifest>
-                            <mainClass>com.tiza.leo.mapreduct.wordcount.WordCountJob</mainClass>
+                            <mainClass>com.tiza.leo.mapreduce.mobileaccesslog.MobileAccessJob</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -88,7 +88,7 @@
                     <fromFile>target/${project.build.finalName}.jar</fromFile> <!-- target/wordcount-1.0-SNAPSHOT.jar 或者 ${project.build.finalName}.jar-->
                     <url>scp://root:root@192.168.213.215/root</url>   <!-- scp://user:password@192.168.20.128/root-->
                     <commands>                                      <!-- 通过sh 执行shell脚本文件 -->
-                        <command>nohup /root/hadoop-2.9.2/bin/hadoop jar ${project.build.finalName}.jar >  /root/mapreduce02.out 2>&amp;1 &amp; </command>
+                        <command>nohup /root/hadoop-2.9.2/bin/hadoop jar ${project.build.finalName}.jar >  /root/mapreduce3.out 2>&amp;1 &amp; </command>
                     </commands>
                 </configuration>
             </plugin>
