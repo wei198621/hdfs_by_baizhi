@@ -10,7 +10,7 @@
 
 
     <properties>
-        <hadoop.version>2.9.2</hadoop.version>
+        <hadoop.version>2.7.2</hadoop.version>
     </properties>
 
     <dependencies>
