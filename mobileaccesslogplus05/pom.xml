@@ -86,9 +86,11 @@
                 <artifactId>wagon-maven-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
-                    <fromFile>target/${project.build.finalName}.jar</fromFile> <!-- target/wordcount-1.0-SNAPSHOT.jar 或者 ${project.build.finalName}.jar-->
-                    <!--<url>scp://root:root@192.168.121.215/root</url> -->    <!--zhan99pc-->
-                    <url>scp://root:root@192.168.213.215/root</url>      <!--working--> <!-- scp://user:password@192.168.20.128/root-->
+                    <!-- target/wordcount-1.0-SNAPSHOT.jar 或者 ${project.build.finalName}.jar-->
+                    <fromFile>target/${project.build.finalName}.jar</fromFile>
+                     <!-- scp://user:password@192.168.20.128/root-->
+                    <url>scp://root:root@192.168.121.215/root</url>             <!--zhan99pc-->
+                    <!--<url>scp://root:root@192.168.213.215/root</url>   -->               <!--working-->
                     <commands>                                      <!-- 通过sh 执行shell脚本文件 -->
                         <command>nohup /root/hadoop-2.9.2/bin/hadoop jar ${project.build.finalName}.jar >  /root/mapreduce05.out 2>&amp;1 &amp; </command>
                     </commands>
