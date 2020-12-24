@@ -30,7 +30,8 @@ public class MobileLogMapJob extends Configured implements Tool {
 
         //02 设置 input 数据源
         job.setInputFormatClass(TextInputFormat.class);
-        TextInputFormat.addInputPath(job,new Path("/mobileaccesslog/data"));
+        TextInputFormat.addInputPath(job,new Path("/mobileaccesslog/bigdata.txt"));
+        //TextInputFormat.addInputPath(job,new Path("/mobileaccesslog/data"));
         /*
        [root@hadoop15 ~]# hdfs dfs -cat /mobileaccesslog/data
 1363157985066   13726230503     00-FD-07-A4-72-B8:CMCC  120.196.100.82  24      27      2481    24681   200
@@ -55,7 +56,7 @@ public class MobileLogMapJob extends Configured implements Tool {
 
         //06 设置output Format
         job.setOutputFormatClass(TextOutputFormat.class);
-        Path path = new Path("/mobileaccesslog/result_map");
+        Path path = new Path("/mobileaccesslog/result_map_bigdata");
         FileSystem fileSystem = FileSystem.get(getConf());
         if(fileSystem.exists(path)){
             fileSystem.delete(path,true);

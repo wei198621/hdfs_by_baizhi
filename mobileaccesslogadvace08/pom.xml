@@ -3,11 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.tiza.leo.hadoop.mapreduce</groupId>
-    <artifactId>mobileaccesslogmap07</artifactId>
+    <artifactId>mobileaccesslogadvace08</artifactId>
     <version>1.0-SNAPSHOT</version>
-
 
     <properties>
         <hadoop.version>2.7.2</hadoop.version>
@@ -80,7 +78,7 @@
                     <outputDirectory>${basedir}/target</outputDirectory>
                     <archive>
                         <manifest>
-                            <mainClass>com.tiza.leo.mobileaccesslogmap.MobileLogMapJob</mainClass>
+                            <mainClass>com.tiza.leo.mobileaccesslogadvance.MobileLogAdvanceJob</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -97,7 +95,7 @@
                     <!--<url>scp://root:root@192.168.121.215/root</url>  -->           <!--zhan99pc-->
                     <url>scp://root:root@192.168.213.215/root</url>                  <!--working-->
                     <commands>                                      <!-- 通过sh 执行shell脚本文件 -->
-                        <command>nohup /root/hadoop-2.9.2/bin/hadoop jar ${project.build.finalName}.jar >  /root/mapreduce07.out 2>&amp;1 &amp; </command>
+                        <command>nohup /root/hadoop-2.9.2/bin/hadoop jar ${project.build.finalName}.jar >  /root/mapreduce08.out 2>&amp;1 &amp; </command>
                     </commands>
                 </configuration>
             </plugin>
