@@ -2,6 +2,7 @@ package com.tiza.leo.mobileaccesslogadvance;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counter;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
@@ -15,6 +16,10 @@ import java.io.IOException;
 public class MobileAccess4Map extends Mapper<LongWritable,Text,Text,AccessLog4Writable> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        //计数器
+        Counter access_map = context.getCounter("map-group", "access-map");
+        access_map.increment(1);
+
         String[] values = value.toString().split("\t");
         int upload = Integer.valueOf(values[values.length-3]);
         int down = Integer.valueOf(values[values.length-2]);

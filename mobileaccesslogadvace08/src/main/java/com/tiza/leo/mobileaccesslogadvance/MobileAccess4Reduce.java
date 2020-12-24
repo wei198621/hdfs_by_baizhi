@@ -1,6 +1,7 @@
 package com.tiza.leo.mobileaccesslogadvance;
 
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counter;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
@@ -17,6 +18,10 @@ public class MobileAccess4Reduce extends Reducer<Text,AccessLog4Writable,Text, A
    int sum=0;                                  //此为02
     @Override
     protected void reduce( Text key, Iterable<AccessLog4Writable> values, Context context) throws IOException, InterruptedException {
+        //计数器
+        Counter access_reduce = context.getCounter("reduce-group", "access_reduce");
+        access_reduce.increment(1);
+
         if (sum < TOPN) {                    //此为03
             int upload=0;
             int down=0;
